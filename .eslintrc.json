@@ -24,8 +24,11 @@
     ],
     "rules": {
         "linebreak-style": "off",
-        "indent": ["error", 4],
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
+        "indent": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "react/jsx-indent": "off",
+        "import/no-unresolved": 0,
+        "import/extensions": 0
     },
     "ignorePatterns": [
         "**/*.config.js"

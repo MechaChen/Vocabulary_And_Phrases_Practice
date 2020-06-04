@@ -1,15 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import { createGlobalStyle } from 'styled-components';
+import reducer from './store/reducers';
+import App from './components/containers/App';
 
-const Heading = styled.h1`
-    font-size: 30px;
+const GlobalStyle = createGlobalStyle`
+    body {
+        background-color: #efded6;
+        color: #333;
+        font-family: 'Tohoma', sans-serif;
+    }
 `;
 
-const App = () => <Heading>Hello World</Heading>;
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
+    }
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(reducer, composeEnhancers(
+    applyMiddleware(),
+));
 
 if (module.hot) {
     module.hot.accept();
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <>
+        <GlobalStyle />
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </>,
+    document.getElementById('root'),
+);
