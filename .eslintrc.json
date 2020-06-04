@@ -28,7 +28,10 @@
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
         "react/jsx-indent": "off",
         "import/no-unresolved": 0,
-        "import/extensions": 0
+        "import/extensions": 0,
+        "react/destructuring-assignment": "off",
+        "react/jsx-curly-brace-presence": "off",
+        "quotes": "off"
     },
     "ignorePatterns": [
         "**/*.config.js"

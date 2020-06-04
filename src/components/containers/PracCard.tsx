@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Card = styled.div`
-    width: 60%;
+    width: 80%;
     margin: 30px auto 0;
     padding: 10px 30px;
     box-sizing: border-box;
     background-color: #fff;
     border-radius: 10px;
+    
+    @media all and (min-width: 1024px) {
+        width: 60%;    
+    }
 `;
 
 const MainWord = styled.h3`
@@ -16,6 +20,11 @@ const MainWord = styled.h3`
 
 const AddField = styled.div`
     display: flex;
+    flex-direction: column;
+
+    @media all and (min-width: 1024px) {
+        flex-direction: row;
+    }
 `;
 
 const AddInput = styled.input`
@@ -26,6 +35,8 @@ const AddInput = styled.input`
     border-bottom: 1.5px solid #aaa;
     color: #c89483;
     transition: .3s;
+    font-size: 16px;
+    border-radius: 0;
 
     &:focus {
         border: none;
@@ -36,13 +47,16 @@ const AddInput = styled.input`
 const AddButton = styled.button`
     outline: none;
     border: none;
-    margin-left: 20px;
+    margin: 10px 0 0 0;
     padding: 10px 20px;
     color: #fff;
     border-radius: 5px;
     background-color: #c89483;
     cursor: pointer;
     transition: .5s;
+    @media all and (min-width: 1024px) {
+        margin: 0 0 0 20px;
+    }
 
     &:hover {
         background-color: #d37c66;

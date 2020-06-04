@@ -36,6 +36,12 @@ const config = {
             filename: './index.html'
         })
     ],
+    devServer: {
+        contentBase: './dist',
+        hot: true,
+        historyApiFallback: true,
+        port: 3000,
+    },
     resolve: {
         alias: {},
         extensions: ['.js', '.jsx', '.ts', '.tsx']

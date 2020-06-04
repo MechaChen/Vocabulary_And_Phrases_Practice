@@ -1,9 +1,18 @@
 import React from 'react';
-import WordCard from './WordCard';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import PracCard from './PracCard';
+import WordsAndPhrases from './WordsAndPhrases';
+import Collections from './Collections';
 
 const App = () => (
     <>
-        <WordCard />
+        <BrowserRouter>
+            <Switch>
+                <Route path="/word-card" component={PracCard} />
+                <Route path="/words" component={WordsAndPhrases} />
+                <Route path="/" component={Collections} />
+            </Switch>
+        </BrowserRouter>
     </>
 );
 

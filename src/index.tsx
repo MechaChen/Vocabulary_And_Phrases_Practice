@@ -12,6 +12,11 @@ const GlobalStyle = createGlobalStyle`
         color: #333;
         font-family: 'Tohoma', sans-serif;
     }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
 `;
 
 declare global {
