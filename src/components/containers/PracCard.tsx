@@ -67,7 +67,7 @@ const Example = styled.li`
     padding: 5px 0;
 `;
 
-const WordCard: React.FC = () => {
+const PracCard: React.FC = () => {
     const [input, setInput] = useState<string>('');
     const [examples, setExamples] = useState<string[]>([]);
 
@@ -96,4 +96,4 @@ const WordCard: React.FC = () => {
     );
 };
 
-export default WordCard;
+export default PracCard;

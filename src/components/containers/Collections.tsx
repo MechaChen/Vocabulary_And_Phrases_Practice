@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import moment from 'moment';
 
@@ -54,7 +55,10 @@ const Phrase = styled(Vocab)`
     background-color: #c8cfd6;
 `;
 
-const Collections = () => (
+const Collections = (props: any) => {
+    console.log('props', props);
+
+    return (
         <>
             <Collection to={`/words?collection=首爾大學第 13 課`}>
                 <Title>
@@ -74,5 +78,14 @@ const Collections = () => (
             </Collection>
         </>
     );
+};
 
-export default Collections;
+const mapStateToProps = (state: any) => ({
+    collections: state,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Collections);
