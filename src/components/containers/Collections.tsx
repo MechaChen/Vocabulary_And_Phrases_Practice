@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import moment from 'moment';
 
 const Collection = styled(Link)`
     display: block;
@@ -55,27 +54,25 @@ const Phrase = styled(Vocab)`
     background-color: #c8cfd6;
 `;
 
-const Collections = (props: any) => {
-    console.log('props', props);
+interface I_Props {
+    collections: any;
+}
+
+const Collections: React.FC<I_Props> = ({ collections }) => {
+    console.log('Collections');
 
     return (
         <>
-            <Collection to={`/words?collection=首爾大學第 13 課`}>
-                <Title>
-                    <Name>首爾大學第 13 課</Name>
-                    <Date>{moment().locale('ko').format('MMMM Do')}</Date>
-                </Title>
-                <Vocab>25 個詞語</Vocab>
-                <Phrase>4 個句型</Phrase>
-            </Collection>
-            <Collection to="/words?collection=首爾大學第13課">
-                <Title>
-                    <Name>首爾大學第 12 課</Name>
-                    <Date>{moment().locale('ko').format('MMMM Do')}</Date>
-                </Title>
-                <Vocab>14 個詞語</Vocab>
-                <Phrase>4 個句型</Phrase>
-            </Collection>
+            {collections.map((collection: any) => (
+                <Collection key={collection.title} to={`/words?collection=${collection.id}`}>
+                    <Title>
+                        <Name>{collection.title}</Name>
+                        <Date>{collection.Date}</Date>
+                    </Title>
+                    <Vocab>{`${collection.words.length} 個詞語`}</Vocab>
+                    <Phrase>{`${collection.phrases.length} 個句型`}</Phrase>
+                </Collection>
+            ))}
         </>
     );
 };

@@ -1,9 +1,13 @@
+import moment from 'moment';
+
 const initState = [
     {
-        collection: '首爾大學第 12 課',
+        id: '1',
+        title: '首爾大學第 12 課',
+        date: moment().locale('ko').format('MMMM Do'),
         words: [
             {
-                word: '기숙사',
+                name: '기숙사',
                 practice: [
                     '기숙사11111111111111',
                     '기숙사22222222222222',
@@ -11,7 +15,7 @@ const initState = [
                 ],
             },
             {
-                word: '빌라',
+                name: '빌라',
                 practice: [
                     '빌라11111111111111',
                     '빌라22222222222222',
@@ -19,7 +23,7 @@ const initState = [
                 ],
             },
             {
-                word: '원룸',
+                name: '원룸',
                 practice: [
                     '원룸11111111111111',
                     '원룸22222222222222',
@@ -27,7 +31,7 @@ const initState = [
                 ],
             },
             {
-                word: '주택',
+                name: '주택',
                 practice: [
                     '주택11111111111111',
                     '주택22222222222222',
@@ -35,7 +39,7 @@ const initState = [
                 ],
             },
             {
-                word: '오피스탤',
+                name: '오피스탤',
                 practice: [
                     '오피스탤11111111111111',
                     '오피스탤22222222222222',
@@ -43,10 +47,23 @@ const initState = [
                 ],
             },
         ],
+        phrases: [
+            {
+                id: '2',
+                name: 'A/V(으)ㄹ 모르겠어요',
+                practice: [
+                    'A/V(으)ㄹ 모르겠어요 111111',
+                    'A/V(으)ㄹ 모르겠어요 222222',
+                    'A/V(으)ㄹ 모르겠어요 333333',
+                ],
+            },
+        ],
     },
     {
-        collection: '首爾大學第 13 課',
+        title: '首爾大學第 13 課',
+        date: moment().add(1, 'month').locale('ko').format('MMMM Do'),
         words: [],
+        phrases: [],
     },
 ];
 

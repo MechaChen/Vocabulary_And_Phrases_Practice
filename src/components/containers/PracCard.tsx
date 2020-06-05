@@ -89,7 +89,7 @@ const PracCard: React.FC = () => {
             </AddField>
             <ul>
                 {examples.map((example) => (
-                    <Example>{example}</Example>
+                    <Example key={example}>{example}</Example>
                 ))}
             </ul>
         </Card>

@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import queryString from 'query-string';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -53,10 +55,15 @@ const Card = styled(Link)`
     }
 `;
 
-const Words: React.FC = (props: any) => {
-    useEffect(() => {
-        console.log('props', props);
-    }, []);
+interface I_Props {
+    collections: any;
+    location: any;
+}
+
+const Collection: React.FC<I_Props> = ({ collections, location }) => {
+    const queryObj = queryString.parse(location.search);
+
+    const curCollection = collections.find((collection: any) => collection.id === queryObj.collection);
 
     return (
         <Container>
@@ -65,32 +72,32 @@ const Words: React.FC = (props: any) => {
                 <SubTitle>
                     <SubTitleText>詞彙</SubTitleText>
                 </SubTitle>
-                <Card to="/word-card">
-                    <h4>기숙사</h4>
-                </Card>
-                <Card to="/word-card">
-                    <h4>빌라</h4>
-                </Card>
-                <Card to="/word-card">
-                    <h4>원룸</h4>
-                </Card>
-                <Card to="/word-card">
-                    <h4>주택</h4>
-                </Card>
-                <Card to="/word-card">
-                    <h4>오피스텔</h4>
-                </Card>
+                {curCollection.words.map((word: any) => (
+                    <Card key={word.name} to="/word-card">
+                        <h4>{word.name}</h4>
+                    </Card>
+                ))}
             </SubContainer>
             <SubContainer>
                 <SubTitle>
                     <SubTitleText subColor="#95a1ae">句型</SubTitleText>
                 </SubTitle>
-                <Card to="/word-card">
-                    <h4>A/V(으)ㄹ 모르겠어요</h4>
-                </Card>
+                {curCollection.phrases.map((phrase: any) => (
+                    <Card key={phrase.name} to="/word-card">
+                        <h4>{phrase.name}</h4>
+                    </Card>
+                ))}
             </SubContainer>
         </Container>
     );
 };
 
-export default Words;
+const mapStateToProps = (state: any) => ({
+    collections: state,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Collection);

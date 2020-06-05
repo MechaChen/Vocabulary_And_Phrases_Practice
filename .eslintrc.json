@@ -31,7 +31,9 @@
         "import/extensions": 0,
         "react/destructuring-assignment": "off",
         "react/jsx-curly-brace-presence": "off",
-        "quotes": "off"
+        "quotes": "off",
+        "camelcase": "off",
+        "react/prop-types": "off"
     },
     "ignorePatterns": [
         "**/*.config.js"
