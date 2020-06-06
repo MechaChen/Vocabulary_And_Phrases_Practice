@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import styled from 'styled-components';
+import console = require('console');
 
 const Container = styled.div`
     width: 80%;
@@ -56,15 +57,11 @@ const Card = styled(Link)`
 `;
 
 interface I_Props {
-    collections: any;
+    set: any;
     location: any;
 }
 
-const Collection: React.FC<I_Props> = ({ collections, location }) => {
-    const queryObj = queryString.parse(location.search);
-
-    const curCollection = collections.find((collection: any) => collection.id === queryObj.collection);
-
+const Module: React.FC<I_Props> = ({ set }) => {
     return (
         <Container>
             <Title>首爾大學第 13 課</Title>
@@ -72,7 +69,7 @@ const Collection: React.FC<I_Props> = ({ collections, location }) => {
                 <SubTitle>
                     <SubTitleText>詞彙</SubTitleText>
                 </SubTitle>
-                {curCollection.words.map((word: any) => (
+                {set.words.map((word: any) => (
                     <Card key={word.name} to="/word-card">
                         <h4>{word.name}</h4>
                     </Card>
@@ -82,7 +79,7 @@ const Collection: React.FC<I_Props> = ({ collections, location }) => {
                 <SubTitle>
                     <SubTitleText subColor="#95a1ae">句型</SubTitleText>
                 </SubTitle>
-                {curCollection.phrases.map((phrase: any) => (
+                {set.phrases.map((phrase: any) => (
                     <Card key={phrase.name} to="/word-card">
                         <h4>{phrase.name}</h4>
                     </Card>
@@ -93,11 +90,11 @@ const Collection: React.FC<I_Props> = ({ collections, location }) => {
 };
 
 const mapStateToProps = (state: any) => ({
-    collections: state,
+    set: state,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Collection);
+export default connect(mapStateToProps, mapDispatchToProps)(Module);

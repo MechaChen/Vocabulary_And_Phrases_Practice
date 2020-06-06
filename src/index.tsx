@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
 import { createGlobalStyle } from 'styled-components';
-import reducer from './store/reducers';
-import App from './components/containers/App';
+import App from './components/App';
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -25,12 +22,6 @@ declare global {
     }
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(reducer, composeEnhancers(
-    applyMiddleware(),
-));
-
 if (module.hot) {
     module.hot.accept();
 }
@@ -38,9 +29,7 @@ if (module.hot) {
 ReactDOM.render(
     <>
         <GlobalStyle />
-        <Provider store={store}>
-            <App />
-        </Provider>
+        <App />
     </>,
     document.getElementById('root'),
 );

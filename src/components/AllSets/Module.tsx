@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-const Collection = styled(Link)`
+const Set = styled(Link)`
     display: block;
     width: 80%;
     margin: 30px auto 0;
@@ -55,34 +55,34 @@ const Phrase = styled(Vocab)`
 `;
 
 interface I_Props {
-    collections: any;
+    sets: any;
 }
 
-const Collections: React.FC<I_Props> = ({ collections }) => {
-    console.log('Collections');
+const Module: React.FC<I_Props> = ({ sets }) => {
+    console.log('Sets', sets);
 
     return (
         <>
-            {collections.map((collection: any) => (
-                <Collection key={collection.title} to={`/words?collection=${collection.id}`}>
+            {sets.map((set: any) => (
+                <Set key={set.title} to={`/words?set=${set.id}`}>
                     <Title>
-                        <Name>{collection.title}</Name>
-                        <Date>{collection.Date}</Date>
+                        <Name>{set.title}</Name>
+                        <Date>{set.date}</Date>
                     </Title>
-                    <Vocab>{`${collection.words.length} 個詞語`}</Vocab>
-                    <Phrase>{`${collection.phrases.length} 個句型`}</Phrase>
-                </Collection>
+                    <Vocab>{`${set.totalWords} 個詞語`}</Vocab>
+                    <Phrase>{`${set.totalPhrases} 個句型`}</Phrase>
+                </Set>
             ))}
         </>
     );
 };
 
 const mapStateToProps = (state: any) => ({
-    collections: state,
+    sets: state,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Collections);
+export default connect(mapStateToProps, mapDispatchToProps)(Module);

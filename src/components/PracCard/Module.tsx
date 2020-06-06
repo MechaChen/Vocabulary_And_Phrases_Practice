@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { I_Card } from './store/reducer';
 import styled from 'styled-components';
+import { addExample } from './store/actions';
 
 const Card = styled.div`
     width: 80%;
@@ -47,7 +50,7 @@ const AddInput = styled.input`
 const AddButton = styled.button`
     outline: none;
     border: none;
-    margin: 10px 0 0 0;
+    margin: 20px 0 0 0;
     padding: 10px 20px;
     color: #fff;
     border-radius: 5px;
@@ -67,28 +70,35 @@ const Example = styled.li`
     padding: 5px 0;
 `;
 
-const PracCard: React.FC = () => {
-    const [input, setInput] = useState<string>('');
-    const [examples, setExamples] = useState<string[]>([]);
+interface I_Props {
+    card: I_Card;
+    addExample: any;
+}
 
-    const addExample = () => {
+const Module: React.FC<I_Props> = ({ card, addExample }) => {
+    const [input, setInput] = useState<string>('');
+
+    const setInputValue = (e: any) => {
+        setInput(e.target.value);
+    }
+
+    const addNewExample = () => {
         if (input) {
-            const newExamples = [...examples, input];
-            setExamples(newExamples);
+            addExample(input);
             setInput('');
         }
-    };
+    }
 
     return (
         <Card>
             <MainWord>기숙사</MainWord>
-            <p>{`已完成 ${examples.length} / 2`}</p>
+            <p>{`已完成 ${card.practice.length} / 2`}</p>
             <AddField>
-                <AddInput type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="加入新的練習吧~" />
-                <AddButton type="button" onClick={addExample}>ADD</AddButton>
+                <AddInput type="text" value={input} onChange={setInputValue} placeholder="加入新的練習吧~" />
+                <AddButton type="button" onClick={addNewExample}>ADD</AddButton>
             </AddField>
             <ul>
-                {examples.map((example) => (
+                {card.practice.map((example) => (
                     <Example key={example}>{example}</Example>
                 ))}
             </ul>
@@ -96,4 +106,12 @@ const PracCard: React.FC = () => {
     );
 };
 
-export default PracCard;
+const mapStateToProps = (state: any) => ({
+    card: state,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+    addExample: (input: string) => dispatch(addExample(input))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Module);
