@@ -9,6 +9,7 @@ const initState = [
         totalPhrases: 1,
     },
     {
+        id: '2',
         title: '首爾大學第 13 課',
         date: moment().add(1, 'month').locale('ko').format('MMMM Do'),
         totalWords: 3,

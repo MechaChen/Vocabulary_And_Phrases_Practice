@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { I_Card } from './store/reducer';
 import styled from 'styled-components';
-import { addExample } from './store/actions';
+import { addExample, deleteExample } from './store/actions';
+import Bin from '../../assets/pics/bin.png';
 
 const Card = styled.div`
     width: 80%;
@@ -66,16 +67,33 @@ const AddButton = styled.button`
     }
 `;
 
+const ExampleList = styled.ul`
+    padding: 30px 0;
+    width: 80%;
+    margin: auto;
+`;
+
 const Example = styled.li`
-    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+`;
+
+const Delete = styled.img`
+    width: 24px;
 `;
 
 interface I_Props {
     card: I_Card;
     addExample: any;
+    deleteExample: (index: number) => void;
 }
 
-const Module: React.FC<I_Props> = ({ card, addExample }) => {
+const Module: React.FC<I_Props> = ({ card, addExample, deleteExample }) => {
+
+    console.log('Bin', Bin);
+
     const [input, setInput] = useState<string>('');
 
     const setInputValue = (e: any) => {
@@ -97,11 +115,14 @@ const Module: React.FC<I_Props> = ({ card, addExample }) => {
                 <AddInput type="text" value={input} onChange={setInputValue} placeholder="加入新的練習吧~" />
                 <AddButton type="button" onClick={addNewExample}>ADD</AddButton>
             </AddField>
-            <ul>
-                {card.practice.map((example) => (
-                    <Example key={example}>{example}</Example>
+            <ExampleList>
+                {card.practice.map((example, i) => (
+                    <Example key={i}>
+                        <span>{example}</span>
+                        <Delete src={Bin} alt="delete" onClick={() => deleteExample(i)} />
+                    </Example>
                 ))}
-            </ul>
+            </ExampleList>
         </Card>
     );
 };
@@ -111,7 +132,8 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-    addExample: (input: string) => dispatch(addExample(input))
+    addExample: (input: string) => dispatch(addExample(input)),
+    deleteExample: (index: number) => dispatch(deleteExample(index)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Module);

@@ -5,6 +5,7 @@ const initState = {
     date: moment().locale('ko').format('MMMM Do'),
     words: [
         {
+            id: '1',
             name: '기숙사',
             practice: [
                 '기숙사11111111111111',
@@ -13,6 +14,7 @@ const initState = {
             ],
         },
         {
+            id: '2',
             name: '빌라',
             practice: [
                 '빌라11111111111111',
@@ -21,6 +23,7 @@ const initState = {
             ],
         },
         {
+            id: '3',
             name: '원룸',
             practice: [
                 '원룸11111111111111',
@@ -29,6 +32,7 @@ const initState = {
             ],
         },
         {
+            id: '4',
             name: '주택',
             practice: [
                 '주택11111111111111',
@@ -37,6 +41,7 @@ const initState = {
             ],
         },
         {
+            id: '5',
             name: '오피스탤',
             practice: [
                 '오피스탤11111111111111',

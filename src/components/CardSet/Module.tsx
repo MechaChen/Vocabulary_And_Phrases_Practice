@@ -70,7 +70,7 @@ const Module: React.FC<I_Props> = ({ set }) => {
                     <SubTitleText>詞彙</SubTitleText>
                 </SubTitle>
                 {set.words.map((word: any) => (
-                    <Card key={word.name} to="/word-card">
+                    <Card key={word.name} to={`/word-card?card=${word.id}`}>
                         <h4>{word.name}</h4>
                     </Card>
                 ))}

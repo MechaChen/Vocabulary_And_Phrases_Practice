@@ -27,6 +27,10 @@ const config = {
                         options: { minimize: !isDevelopment }
                     }
                 ]
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: 'file-loader'
             }
         ]
     },
