@@ -1,5 +1,4 @@
 import { ADD_EXAMPLE, DELETE_EXAMPLE } from './actions';
-import console = require('console');
 
 export interface I_Card {
     name: string;
@@ -18,13 +17,15 @@ const initState: I_Card = {
 const reducer = (state: any = initState, action: any) => {
     switch (action.type) {
         case ADD_EXAMPLE:
-            return { ...state, practice: [ ...state.practice, action.example ]};
+            return { ...state, practice: [...state.practice, action.example] };
         case DELETE_EXAMPLE:
-            state.practice.splice(action.index, 1);
-            return { ...state, practice: state.practice}
+            const newState: any = { ...state };
+            newState.practice.splice(action.index, 1);
+
+            return { ...state, practice: newState.practice };
         default:
             return state;
     }
-}
+};
 
 export default reducer;

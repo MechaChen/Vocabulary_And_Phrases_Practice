@@ -3,7 +3,17 @@ import ReactDOM from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
 import App from './components/App';
 
+import NotoSansTC from './assets/fonts/NotoSansTC-Regular.otf';
+
 const GlobalStyle = createGlobalStyle`
+    @font-face {
+        font-family: NotoSansTC;
+        src: url(${NotoSansTC});
+        font-style: normal;
+        font-weight: 400;
+        font-display: fallback;
+    }
+    
     body {
         background-color: #efded6;
         color: #333;

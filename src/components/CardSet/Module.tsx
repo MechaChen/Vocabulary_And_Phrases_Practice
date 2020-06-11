@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import queryString from 'query-string';
 import styled from 'styled-components';
-import console = require('console');
 
 const Container = styled.div`
     width: 80%;
@@ -14,8 +12,10 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
-    padding: 20px 0;
+    font-family: NotoSansTC;
+    padding-top: 20px;
     text-align: center;
+    color: #666;
 `;
 
 const SubContainer = styled.div`
@@ -25,6 +25,7 @@ const SubContainer = styled.div`
 const SubTitle = styled.h3`
     margin: 0;
     padding: 20px 0 0;
+    font-family: NotoSansTC;
 `;
 
 interface ISubTitleText {
@@ -61,8 +62,7 @@ interface I_Props {
     location: any;
 }
 
-const Module: React.FC<I_Props> = ({ set }) => {
-    return (
+const Module: React.FC<I_Props> = ({ set }) => (
         <Container>
             <Title>首爾大學第 13 課</Title>
             <SubContainer>
@@ -87,7 +87,6 @@ const Module: React.FC<I_Props> = ({ set }) => {
             </SubContainer>
         </Container>
     );
-};
 
 const mapStateToProps = (state: any) => ({
     set: state,

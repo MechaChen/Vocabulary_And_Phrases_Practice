@@ -22,6 +22,9 @@ const Title = styled.div`
     display: flex;
     flex-direction: column;
     padding-bottom: 20px;
+    font-family: NotoSansTC;
+    color: #333;
+
     @media all and (min-width: 1024px) {
         flex-direction: row;
         align-items: center;

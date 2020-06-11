@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { I_Card } from './store/reducer';
 import styled from 'styled-components';
+import { I_Card } from './store/reducer';
 import { addExample, deleteExample } from './store/actions';
 import Bin from '../../assets/pics/bin.png';
 
@@ -12,6 +12,7 @@ const Card = styled.div`
     box-sizing: border-box;
     background-color: #fff;
     border-radius: 10px;
+    box-shadow: 0px 10px 25px -8px #aaa;
     
     @media all and (min-width: 1024px) {
         width: 60%;    
@@ -20,6 +21,19 @@ const Card = styled.div`
 
 const MainWord = styled.h3`
     font-size: 24px;
+`;
+
+const PracStatus = styled.p`
+    font-family: NotoSansTC;
+`;
+
+interface I_PracNum {
+    completed?: boolean;
+}
+
+const PracNum = styled.span<I_PracNum>`
+    font-family: NotoSansTC;
+    color: ${(props) => (props.completed ? '#333' : '#d37c66')}
 `;
 
 const AddField = styled.div`
@@ -42,6 +56,10 @@ const AddInput = styled.input`
     font-size: 16px;
     border-radius: 0;
 
+    &::placeholder {
+        font-family: NotoSansTC;
+    }
+
     &:focus {
         border: none;
         border-bottom: 1.5px solid #c89483;
@@ -56,10 +74,12 @@ const AddButton = styled.button`
     color: #fff;
     border-radius: 5px;
     background-color: #c89483;
+    font-size: 20px;
     cursor: pointer;
     transition: .5s;
     @media all and (min-width: 1024px) {
         margin: 0 0 0 20px;
+        font-size: 16px;
     }
 
     &:hover {
@@ -91,26 +111,31 @@ interface I_Props {
 }
 
 const Module: React.FC<I_Props> = ({ card, addExample, deleteExample }) => {
-
     console.log('Bin', Bin);
 
     const [input, setInput] = useState<string>('');
 
     const setInputValue = (e: any) => {
         setInput(e.target.value);
-    }
+    };
 
     const addNewExample = () => {
         if (input) {
             addExample(input);
             setInput('');
         }
-    }
+    };
 
     return (
         <Card>
             <MainWord>기숙사</MainWord>
-            <p>{`已完成 ${card.practice.length} / 2`}</p>
+                <PracStatus>
+                    已完成
+                    {' '}
+                    <PracNum completed={card.practice.length >= 2}>{card.practice.length}</PracNum>
+                    {' '}
+                    / 2
+                </PracStatus>
             <AddField>
                 <AddInput type="text" value={input} onChange={setInputValue} placeholder="加入新的練習吧~" />
                 <AddButton type="button" onClick={addNewExample}>ADD</AddButton>

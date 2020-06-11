@@ -33,7 +33,9 @@
         "react/jsx-curly-brace-presence": "off",
         "quotes": "off",
         "camelcase": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "no-case-declarations": "off",
+        "react/jsx-props-no-spreading": "off"
     },
     "ignorePatterns": [
         "**/*.config.js"
