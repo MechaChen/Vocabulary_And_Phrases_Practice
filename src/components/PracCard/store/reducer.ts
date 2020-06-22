@@ -1,21 +1,14 @@
-import { ADD_EXAMPLE, DELETE_EXAMPLE } from './actions';
+import { GET_CARD, ADD_EXAMPLE, DELETE_EXAMPLE } from './actions';
 
 export interface I_Card {
     name: string;
     practice: string[];
 }
 
-const initState: I_Card = {
-    name: '기숙사',
-    practice: [
-        '기숙사11111111111111',
-        '기숙사22222222222222',
-        '기숙사33333333333333',
-    ],
-};
-
-const reducer = (state: any = initState, action: any) => {
+const reducer = (state: any = {}, action: any) => {
     switch (action.type) {
+        case GET_CARD:
+            return action.card;
         case ADD_EXAMPLE:
             return { ...state, practice: [...state.practice, action.example] };
         case DELETE_EXAMPLE:

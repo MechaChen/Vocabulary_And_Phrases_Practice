@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+
+import { getSet, Set } from './store/actions';
 
 const Container = styled.div`
     width: 80%;
@@ -60,17 +62,40 @@ const Card = styled(Link)`
 interface I_Props {
     set: any;
     location: any;
+    getSet: (set_card: Set) => void;
 }
 
-const Module: React.FC<I_Props> = ({ set }) => (
+const Module: React.FC<I_Props> = ({ set, location, getSet }) => {
+    useEffect(() => {
+        (async () => {
+            const params = new URLSearchParams(location.search);
+            const set_oid = params.get('set');
+
+            const setJSON = await fetch(`/sets/${set_oid}`);
+            const set = await setJSON.json();
+
+            console.log('set', set);
+            getSet(set);
+        })();
+    }, []);
+
+    let words;
+    let phrases;
+
+    if (set.cards) {
+        words = set.cards.filter((card: any) => card.type === 'word');
+        phrases = set.cards.filter((card: any) => card.type === 'phrase');
+    }
+
+    return set.cards ? (
         <Container>
-            <Title>首爾大學第 13 課</Title>
+            <Title>{set.title}</Title>
             <SubContainer>
                 <SubTitle>
                     <SubTitleText>詞彙</SubTitleText>
                 </SubTitle>
-                {set.words.map((word: any) => (
-                    <Card key={word.name} to={`/word-card?card=${word.id}`}>
+                {words.map((word: any) => (
+                    <Card key={word._id.$oid} to={`/card?card=${word._id.$oid}`}>
                         <h4>{word.name}</h4>
                     </Card>
                 ))}
@@ -79,21 +104,22 @@ const Module: React.FC<I_Props> = ({ set }) => (
                 <SubTitle>
                     <SubTitleText subColor="#95a1ae">句型</SubTitleText>
                 </SubTitle>
-                {set.phrases.map((phrase: any) => (
-                    <Card key={phrase.name} to="/word-card">
+                {phrases.map((phrase: any) => (
+                    <Card key={phrase._id.$oid} to={`/card?card=${phrase._id.$oid}`}>
                         <h4>{phrase.name}</h4>
                     </Card>
                 ))}
             </SubContainer>
         </Container>
-    );
+    ) : null;
+};
 
 const mapStateToProps = (state: any) => ({
     set: state,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-
+    getSet: (set_card: Set) => dispatch(getSet(set_card)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Module);

@@ -8,8 +8,8 @@ const App = () => (
     <>
         <BrowserRouter>
             <Switch>
-                <Route path="/word-card" render={(props: any) => <PracCard {...props} />} />
-                <Route path="/words" render={(props: any) => <CardSet {...props} />} />
+                <Route path="/card" render={(props: any) => <PracCard {...props} />} />
+                <Route path="/set" render={(props: any) => <CardSet {...props} />} />
                 <Route path="/" render={(props: any) => <AllSets {...props} />} />
             </Switch>
         </BrowserRouter>

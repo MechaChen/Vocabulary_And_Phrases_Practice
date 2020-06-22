@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { I_Card } from './store/reducer';
-import { addExample, deleteExample } from './store/actions';
+import { Card, getCard, addExample, deleteExample } from './store/actions';
 import Bin from '../../assets/pics/bin.png';
 
 const Card = styled.div`
@@ -105,13 +104,25 @@ const Delete = styled.img`
 `;
 
 interface I_Props {
-    card: I_Card;
+    card: Card;
     addExample: any;
+    location: any;
+    getCard: (card: Card) => void;
     deleteExample: (index: number) => void;
 }
 
-const Module: React.FC<I_Props> = ({ card, addExample, deleteExample }) => {
-    console.log('Bin', Bin);
+const Module: React.FC<I_Props> = ({ card, location, addExample, deleteExample, getCard }) => {
+    useEffect(() => {
+        (async () => {
+            const params = new URLSearchParams(location.search);
+            const card_oid = params.get('card');
+
+            const cardJSON = await fetch(`/cards/${card_oid}`);
+            const card = await cardJSON.json();
+
+            getCard(card);
+        })();
+    }, []);
 
     const [input, setInput] = useState<string>('');
 
@@ -126,9 +137,9 @@ const Module: React.FC<I_Props> = ({ card, addExample, deleteExample }) => {
         }
     };
 
-    return (
+    return card.name ? (
         <Card>
-            <MainWord>기숙사</MainWord>
+            <MainWord>{card.name}</MainWord>
                 <PracStatus>
                     已完成
                     {' '}
@@ -149,7 +160,7 @@ const Module: React.FC<I_Props> = ({ card, addExample, deleteExample }) => {
                 ))}
             </ExampleList>
         </Card>
-    );
+    ) : null;
 };
 
 const mapStateToProps = (state: any) => ({
@@ -157,6 +168,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
+    getCard: (card: Card) => dispatch(getCard(card)),
     addExample: (input: string) => dispatch(addExample(input)),
     deleteExample: (index: number) => dispatch(deleteExample(index)),
 });

@@ -1,25 +1,11 @@
 import moment from 'moment';
+import { simpleSet, GET_SETS, CREATE_SET } from './actions';
 
-const initState = [
-    {
-        id: '1',
-        title: '首爾大學第 12 課',
-        date: moment().locale('ko').format('MMMM Do'),
-        totalWords: 5,
-        totalPhrases: 1,
-    },
-    {
-        id: '2',
-        title: '首爾大學第 13 課',
-        date: moment().add(1, 'month').locale('ko').format('MMMM Do'),
-        totalWords: 3,
-        totalPhrases: 2,
-    },
-];
-
-const reducer = (state: any = initState, action: any) => {
+const reducer = (state: simpleSet[] = [], action: any) => {
     switch (action.type) {
-        case '':
+        case GET_SETS:
+            return action.allSets;
+        case CREATE_SET:
             return state;
         default:
             return state;

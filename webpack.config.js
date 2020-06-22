@@ -48,7 +48,12 @@ const config = {
         contentBase: './dist',
         hot: true,
         historyApiFallback: true,
-        port: 3000,
+        port: 8080,
+        proxy: {
+            '/': {
+                target: 'http://10.41.9.162:5000'
+            }
+        }
     },
     resolve: {
         alias: {},

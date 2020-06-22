@@ -35,7 +35,8 @@
         "camelcase": "off",
         "react/prop-types": "off",
         "no-case-declarations": "off",
-        "react/jsx-props-no-spreading": "off"
+        "react/jsx-props-no-spreading": "off",
+        "object-curly-newline": "off"
     },
     "ignorePatterns": [
         "**/*.config.js"

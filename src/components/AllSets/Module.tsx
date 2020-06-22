@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import moment from 'moment';
+
+import { simpleSet, getSets, createSet } from './store/actions';
 
 const Set = styled(Link)`
     display: block;
@@ -59,21 +62,28 @@ const Phrase = styled(Vocab)`
 
 interface I_Props {
     sets: any;
+    getSets: (allSets: simpleSet[]) => void;
 }
 
-const Module: React.FC<I_Props> = ({ sets }) => {
-    console.log('Sets', sets);
+const Module: React.FC<I_Props> = ({ sets, getSets }) => {
+    useEffect(() => {
+        (async () => {
+            const allSetsJSON = await fetch('/sets');
+            const allSets = await allSetsJSON.json();
+            getSets(allSets);
+        })();
+    }, []);
 
     return (
         <>
             {sets.map((set: any) => (
-                <Set key={set.title} to={`/words?set=${set.id}`}>
+                <Set key={set.title} to={`/set?set=${set._id.$oid}`}>
                     <Title>
                         <Name>{set.title}</Name>
-                        <Date>{set.date}</Date>
+                        <Date>{moment(set.date).locale('ko').format('MMMM Do')}</Date>
                     </Title>
-                    <Vocab>{`${set.totalWords} 個詞語`}</Vocab>
-                    <Phrase>{`${set.totalPhrases} 個句型`}</Phrase>
+                    <Vocab>{`${set.wordNum} 個詞語`}</Vocab>
+                    <Phrase>{`${set.phraseNum} 個句型`}</Phrase>
                 </Set>
             ))}
         </>
@@ -85,7 +95,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-
+    getSets: (allSets: simpleSet[]) => dispatch(getSets(allSets)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Module);
